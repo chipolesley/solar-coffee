@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SolarCoffee.Web
+namespace solar
 {
     public class Program
     {
