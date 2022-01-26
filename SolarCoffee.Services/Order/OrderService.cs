@@ -14,12 +14,13 @@ namespace SolarCoffee.Services.Order
     {
         private readonly SolarDbContext _db;
         private readonly IProductService _productService;
-        private readonly IInventoryService _invetoryService;
+        private readonly IInventoryService _inventoryService;
 
-        public OrderService(SolarDbContext solarDbContext, IProductService productService)
+        public OrderService(SolarDbContext solarDbContext, IProductService productService, IInventoryService inventoryService)
         {
             _db = solarDbContext;
             _productService = productService;
+            _inventoryService = inventoryService;
         }
 
         /// <summary>
@@ -33,8 +34,8 @@ namespace SolarCoffee.Services.Order
             {
                 item.Product = _productService.GetProductById(item.Product.Id);
     
-                var inventoryId = _invetoryService.GetByProductId(item.Product.Id).Id;
-                _invetoryService.UpdateInventory(inventoryId, -item.Quantity);
+                var inventoryId = _inventoryService.GetByProductId(item.Product.Id).Id;
+                _inventoryService.UpdateInventory(inventoryId, -item.Quantity);
             }
             try
             {
