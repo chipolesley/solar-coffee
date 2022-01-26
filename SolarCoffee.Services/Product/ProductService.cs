@@ -70,11 +70,11 @@ namespace SolarCoffee.Services.Product
                 {
                     IsSuccess = false,
                     Time = DateTime.UtcNow,
-                    Message = "Error in saving a new Product",
+                    Message = $"Error in saving a new Product. {ex.StackTrace}",
                     Data = product
                 };
             }
-            
+
         }
 
         /// <summary>
@@ -82,7 +82,6 @@ namespace SolarCoffee.Services.Product
         /// </summary>
         /// <param name="productName"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public Data.Models.Product GetProductByName(string productName)
         {
             return _db.Products.Find(productName);
@@ -93,23 +92,22 @@ namespace SolarCoffee.Services.Product
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public ServiceResponse<Data.Models.Product> ArchiveProduct(int productId)
         {
             try
             {
-                var product = _db.Products.Find(productId);            
-                    product.IsArchived = true;
-                    _db.SaveChanges();
+                var product = _db.Products.Find(productId);
+                product.IsArchived = true;
+                _db.SaveChanges();
 
-                    return new ServiceResponse<Data.Models.Product>
-                    {
-                        IsSuccess = true,
-                        Time = DateTime.UtcNow,
-                        Message = "Product Archived Successfully...",
-                        Data = product
-                    };
-                
+                return new ServiceResponse<Data.Models.Product>
+                {
+                    IsSuccess = true,
+                    Time = DateTime.UtcNow,
+                    Message = "Product Archived Successfully...",
+                    Data = product
+                };
+
             }
             catch (Exception ex)
             {
